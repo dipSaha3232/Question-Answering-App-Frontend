@@ -11,7 +11,7 @@ export class LoginService {
   private baseurl = "https://localhost:5001/api/";
 
   private isLoggedIn : boolean = false;
-  private cuurentUser : User = new User();
+  private curentUser : User = new User();
 
   constructor(private http : HttpClient) {
     this.isLoggedIn = false;
@@ -25,11 +25,12 @@ export class LoginService {
     this.http.post<boolean>(this.baseurl + "login", user).subscribe(response =>{
       this.isLoggedIn = response;
       if(this.isLoggedIn) {
-        this.searchUser(user.username).subscribe(
+        /*this.searchUser(user.username).subscribe(
           response1 => {
             this.cuurentUser = response1;
           }
-        )
+        )*/
+        this.curentUser = user;
       }
     })
 
@@ -37,15 +38,15 @@ export class LoginService {
   }
 
   public isAdminUser() : boolean {
-    return this.cuurentUser.role.toUpperCase() == "ADMIN";
+    return this.curentUser.role.toUpperCase() == "ADMIN";
   }
 
   public isStudentUser() : boolean {
-    return this.cuurentUser.role.toUpperCase() == "STUDENT";
+    return this.curentUser.role.toUpperCase() == "STUDENT";
   }
 
   public getCurrentUser() : User {
-    return this.cuurentUser;
+    return this.curentUser;
   }
 
   public logoutUser() : void {

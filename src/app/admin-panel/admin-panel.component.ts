@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ContextQuestion } from '../models/context-question';
+import { QuestionService } from '../question.service';
+import { QuestionComponent } from '../question/question.component';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
 
-  constructor() { }
+  contextQuestion : ContextQuestion = new ContextQuestion();
+
+  constructor(private questionService : QuestionService) { }
 
   ngOnInit(): void {
+  }
+
+  post() : void {
+    alert(this.contextQuestion.questions);
+
+    this.questionService.submitContextQuestion(this.contextQuestion).subscribe(
+      response =>{
+        if(response)
+          alert("Posted Successfully");
+        else
+          alert("Unable to post");
+      }
+    )
   }
 
 }

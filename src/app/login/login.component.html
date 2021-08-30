@@ -1,6 +1,6 @@
 <p class = "p">Login to procedure</p>
-<form>
-    <input class = "input" type="text" [(ngModel)] = "user1.username" name="username" placeholder="Username* " required/> <br>
+<div id = "answers"><form>
+    <input id="username" class = "input" type="text" [(ngModel)] = "user1.username" name="username" placeholder="Username* " required/> <br>
     <br>
     <br>   
     <input class = "input" type="password" [(ngModel)] = "user1.password" name="password" placeholder="Password*" required/> <br> 
@@ -14,12 +14,13 @@
     </select><br>
     <br>
     <br>
-    <button (click) = "login()" class="button">Login</button>
+    <button id="submit" (click) = "login()" class="button">Login</button>
     <hr>
     <div class = "link container">
         <a routerLink= "/register" routerLinkActive="active" class="button1">Create an account</a>
     </div>
 </form>
+</div>
 <!--<button (click) = "login()" class="button1">Sign Up</button>-->
 
 <router-outlet></router-outlet>

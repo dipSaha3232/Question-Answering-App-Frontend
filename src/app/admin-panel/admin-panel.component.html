@@ -1,17 +1,24 @@
 <p class = "p">Welcome To Admin Panel</p>
 
 <form>
-    <textarea placeholder="Enter Comprehension Here" class="textarea"></textarea>
+    <textarea [(ngModel)] = "contextQuestion.context" placeholder="Enter Comprehension Here" class="textarea" name="paragraph"></textarea>
     <br>
     <br>
     <hr>
-    
-    <button class="button">Post</button>
+    <textarea [(ngModel)]="contextQuestion.questions[0]" placeholder="Type a Question Here" class="textarea1" name="question1" required></textarea>
+    <!--<div class="link">
+        <button class="button1">
+            <a routerLink= "/add-question" routerLinkActive="active">Set Question</a>
+        </button>
+    </div>-->
+    <br><br><br>
+    <textarea [(ngModel)]="contextQuestion.questions[1]" placeholder="Type a Question Here" class="textarea1" name="question2" required></textarea>
+    <br>
+    <br>
+    <br>
+    <textarea [(ngModel)]="contextQuestion.questions[2]" placeholder="Type a Question Here" class="textarea1" name="question3" required></textarea>
+    <br>
+    <br>
+    <button (click)="post()" class="button">Post</button>
 
 </form>
-
-<div class="link">
-    <button class="button1">
-        <a routerLink= "/add-question" routerLinkActive="active">Set Question</a>
-    </button>
-</div>

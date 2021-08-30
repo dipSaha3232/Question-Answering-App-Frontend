@@ -16,6 +16,8 @@ import { AuthGuardService } from './auth-guard.service';
 import { AdminGuardService } from './admin-guard.service';
 import { StudentGuardService } from './student-guard.service';
 import { QuestionComponent } from './question/question.component';
+import { QuestionService } from './question.service';
+import { CorrectAnswerComponent } from './correct-answer/correct-answer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { QuestionComponent } from './question/question.component';
     AdminPanelComponent,
     StudentPanelComponent,
     RegisterComponent,
-    QuestionComponent
+    QuestionComponent,
+    CorrectAnswerComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,9 @@ import { QuestionComponent } from './question/question.component';
     RegisterService,
     AuthGuardService,
     AdminGuardService,
-    StudentGuardService
+    StudentGuardService,
+    QuestionService,
+    AdminPanelComponent
   ],
   bootstrap: [AppComponent]
 })
