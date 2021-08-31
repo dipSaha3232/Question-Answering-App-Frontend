@@ -1,5 +1,4 @@
-.p {
-    background-color : #8F00FF; 
+.p { 
     height : 60px; 
     padding-left : 10px;
     padding-top : 15px; 
@@ -15,7 +14,7 @@
 }
 
 .button {
-    background-color : #3270cd;
+    background-color : #155b5e;
     border : none;
     color : white;
     padding : 15px 32px;
@@ -37,4 +36,15 @@
     color: rgb(112, 108, 108);
     border-style: outset;
     border-color: #ebe8e8;
+}
+
+.body {
+    background-image: url("../../assets/register.jpg");
+}
+
+.a {
+    text-align : right; 
+    font-size: 20px;
+    color : white;
+    padding-left: 70%;
 }

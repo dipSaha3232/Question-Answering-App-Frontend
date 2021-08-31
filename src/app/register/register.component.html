@@ -1,4 +1,7 @@
-<p class="p">Create Account</p>
+<body class="body">
+<div class="p">
+    Create Account<a style="color: white;" class = "a" routerLink="/login" routerLinkActive="active">Back</a>
+</div>
 <form ngNativeValidate>
     <input id ="username" class="input" type="text" [(ngModel)] = "user.username" name="username" placeholder ="Username*" required/>
     <br><br><br>
@@ -21,4 +24,5 @@
     <br>
     <button (click) = "addUser()" class="button">Sign Up</button>
 </form>
+</body>
 
