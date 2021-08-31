@@ -1,26 +1,23 @@
 <p class = "p">Login to procedure</p>
-<div id = "answers"><form>
-    <input id="username" class = "input" type="text" [(ngModel)] = "user1.username" name="username" placeholder="Username* " required/> <br>
-    <br>
-    <br>   
-    <input class = "input" type="password" [(ngModel)] = "user1.password" name="password" placeholder="Password*" required/> <br> 
-    <br>
-    <br>
+ <form ngNativeValidate>
+    <input id="username" class = "input" type="text" [(ngModel)] = "user.username" name="username" placeholder="Username*" required/> <br>
+    <br><br>   
+    <input class = "input" type="password" [(ngModel)] = "user.password" name="password" placeholder="Password*" required/> <br> 
+    <br><br>
     
-    <select id="role" name="role" [(ngModel)]="user1.role" required>
-        Role*
+    <label for="Role" class="label other">Role*</label><br><br>
+
+    <select id="role" name="role" [(ngModel)]="user.role" required>
         <option value="admin">Admin</option>
         <option value="student">Student</option>
     </select><br>
-    <br>
-    <br>
+    <br><br>
     <button id="submit" (click) = "login()" class="button">Login</button>
     <hr>
     <div class = "link container">
-        <a routerLink= "/register" routerLinkActive="active" class="button1">Create an account</a>
+        <a routerLink= "/register" routerLinkActive="active" class="button1">Create new account</a>
     </div>
-</form>
-</div>
-<!--<button (click) = "login()" class="button1">Sign Up</button>-->
+ </form>
+
 
 <router-outlet></router-outlet>

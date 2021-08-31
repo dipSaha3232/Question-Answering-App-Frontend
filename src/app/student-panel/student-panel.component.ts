@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 import { ContextQuestion } from '../models/context-question';
 import { QuestionService } from '../question.service';
 
@@ -17,7 +19,9 @@ export class StudentPanelComponent implements OnInit {
   answers : string[] = [];
   correctAnswersMarks : number [] = [];
 
-  constructor(private questionService : QuestionService) { }
+  constructor(private questionService : QuestionService,
+              private loginService : LoginService,
+              private router : Router) { }
 
   ngOnInit(): void {
     this.getContextQuestion();
@@ -31,13 +35,15 @@ export class StudentPanelComponent implements OnInit {
     )
   }
 
-  changeAttributeOfAnswerTextArea(value  : number, id : string) : void{
+  changeAttributeOfAnswerTextArea(value  : number, id : string, index : number) : void{
     if(value == 0)
       document.getElementById(id)?.setAttribute("style", "background-color : red");
     else if(value == 1)
       document.getElementById(id)?.setAttribute("style", "background-color : green");
 
     document.getElementById(id)?.setAttribute("readonly", "true");
+    document.getElementById(id)?.setAttribute("placeholder" , "");
+    
   }
 
   removeSubmitButton() : void {
@@ -50,7 +56,7 @@ export class StudentPanelComponent implements OnInit {
     const p = document.createElement("p");
     const br = document.createElement("br");
     const hr = document.createElement("hr");
-    p.textContent = "Obtained Marks "+this.correctAnswersMarks[3];
+    p.textContent = "Obtained Marks : "+this.correctAnswersMarks[3];
     p.setAttribute("style", "background-color : #8F00FF; height : 60px; padding-left : 10px;padding-top : 15px; color : white; font-size: 30px;");
 
 
@@ -66,6 +72,7 @@ export class StudentPanelComponent implements OnInit {
     this.answers.push(this.answer2);
     this.answers.push(this.answer3);
 
+
     this.questionService.getAnswerMarks(this.answers).subscribe(
       response =>{
         this.correctAnswersMarks = response;
@@ -73,11 +80,16 @@ export class StudentPanelComponent implements OnInit {
         this.removeSubmitButton();
         this.addMarkElement();
 
-        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[0], "answer1");
-        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[1], "answer2");
-        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3");
+        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[0], "answer1", 0);
+        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[1], "answer2", 1);
+        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3", 2);
       }
     )
+  }
+
+  logout() : void {
+    this.loginService.logoutUser();
+    this.router.navigate(['login']);
   }
 
 }

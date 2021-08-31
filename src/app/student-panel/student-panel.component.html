@@ -1,26 +1,28 @@
-<p class = "p">Welcome To Student Panel</p>
+<div class = "p">
+    Welcome To Student Panel<a class = "a" routerLink="" routerLinkActive="active" (click)="logout()">LOG OUT</a>
+</div>
 <div>
     <textarea class = "textarea" name="paragraph" readonly>{{contextQuestion.context}}</textarea>
 </div>
 
 <br><br><hr>
 <div id="answers">
-    <form>
+    <form ngNativeValidate>
         <textarea class="textarea1" name="question1" readonly>{{contextQuestion.questions[0]}}</textarea>
-        <textarea id="answer1" [(ngModel)]="answer1" placeholder="Write Your Answer Here" class="textarea1" name="answer1" required></textarea>
+        <textarea id="answer1" [(ngModel)]="answer1" placeholder="Write Your Answer Here" class="textarea2" name="answer1" required></textarea>
         <br><br><br>
         <textarea class="textarea1" name="question2" readonly>{{contextQuestion.questions[1]}}</textarea>
-        <textarea id="answer2" [(ngModel)]="answer2" placeholder="Write Your Answer Here" class="textarea1" name="answer2" required></textarea>
+        <textarea id="answer2" [(ngModel)]="answer2" placeholder="Write Your Answer Here" class="textarea2" name="answer2" required></textarea>
         <br><br><br>
         <textarea class="textarea1" name="question3" readonly>{{contextQuestion.questions[0]}}</textarea>
-        <textarea id="answer3" [(ngModel)]="answer3" placeholder="Write Your Answer Here" class="textarea1" name="answer3" required></textarea>
+        <textarea id="answer3" [(ngModel)]="answer3" placeholder="Write Your Answer Here" class="textarea2" name="answer3" required></textarea>
         <br><br>
-        <button id="submit" (click)="submit()" class="button">Submit Answers</button>
+        <button id="submit" (click)="submit()" class="button">Submit Answers</button><br>
+        <hr>
+        <div class = "link container">
+            <a routerLink= "/correct-answers" routerLinkActive="active" class="button1">See Correct Answers</a>
+        </div>
     </form>
-</div>
-
-<div class = "link container">
-    <a routerLink= "/correct_answers" routerLinkActive="active" class="button1">See Correct Answers</a>
 </div>
 
 

@@ -11,7 +11,6 @@ import { User } from '../models/user';
 export class LoginComponent implements OnInit {
 
   user : User = new User();
-  user1 : User = new User();
 
   public error : boolean = false;
   retUrl : any = "login";
@@ -27,21 +26,27 @@ export class LoginComponent implements OnInit {
   }
 
   login() : void {
+
+    if(this.user.username == "" || this.user.password == "" || this.user.role == "")
+    {
+      alert("Please fill up all fields before submit");
+      return ;
+    }
     
-    this.loginService.login(this.user1).subscribe(
+    this.loginService.login(this.user).subscribe(
       response =>{
         if(response == true){
           alert("Login Successful");
           if(this.loginService.isStudentUser())
-            this.router.navigate(["student-panel"]);
+            this.router.navigate(['student-panel']);
           if(this.loginService.isAdminUser())
-            this.router.navigate(["admin-panel"]);
+            this.router.navigate(['admin-panel']);
         }
         else {
-          alert("Username Or Password does not match");
+          alert("Username or Password does not match");
           this.router.navigate(["login"])
         }
-        this.user1 = new User();
+        this.user = new User();
       }
     )
   }
