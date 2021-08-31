@@ -1,5 +1,5 @@
 .button {
-    background-color : #3270cd;
+    background-color : #0b441e;
     border : none;
     color : white;
     padding : 15px 32px;
@@ -11,7 +11,6 @@
 }
 
 .p {
-    background-color : #8F00FF; 
     height : 60px; 
     padding-left : 10px;
     padding-top : 15px; 
@@ -39,6 +38,7 @@
 .container {
     width : 100%;
     text-align: center;
+    color: white;
 }
 
 .label {
@@ -52,4 +52,8 @@
     color: rgb(112, 108, 108);
     border-style: outset;
     border-color: #e4e1e1;
+}
+
+.body {
+    background-image: url("../../assets/0jsAvl.jpg");
 }

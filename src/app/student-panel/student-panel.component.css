@@ -1,5 +1,4 @@
-.p {
-    background-color : #000000de; 
+.p { 
     height : 60px; 
     padding-left : 10px;
     padding-top : 15px; 
@@ -98,4 +97,8 @@ textarea::placeholder {
     font-size: 15px;
     color : white;
     padding-left: 60%;
+}
+
+.body {
+    background-image: url("../../assets/student_panel.jpg");
 }

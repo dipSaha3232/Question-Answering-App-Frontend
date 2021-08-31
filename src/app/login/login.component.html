@@ -1,3 +1,4 @@
+<body class="body">
 <p class = "p">Login to procedure</p>
  <form ngNativeValidate>
     <input id="username" class = "input" type="text" [(ngModel)] = "user.username" name="username" placeholder="Username*" required/> <br>
@@ -15,9 +16,10 @@
     <button id="submit" (click) = "login()" class="button">Login</button>
     <hr>
     <div class = "link container">
-        <a routerLink= "/register" routerLinkActive="active" class="button1">Create new account</a>
+        <a style="color: white;" routerLink= "/register" routerLinkActive="active" class="button1">Create new account</a>
     </div>
  </form>
 
 
 <router-outlet></router-outlet>
+</body>
