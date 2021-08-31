@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from './models/user';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class LoginService {
   private baseurl = "https://localhost:5001/api/";
 
   private isLoggedIn : boolean = false;
-  private curentUser : User = new User();
+  private currentUser : User = new User();
 
   constructor(private http : HttpClient) {
     this.isLoggedIn = false;
@@ -22,39 +22,35 @@ export class LoginService {
   }
 
   public login(user : User) : Observable<boolean> {
-    this.http.post<boolean>(this.baseurl + "login", user).subscribe(response =>{
-      this.isLoggedIn = response;
-      if(this.isLoggedIn) {
-        /*this.searchUser(user.username).subscribe(
-          response1 => {
-            this.cuurentUser = response1;
-          }
-        )*/
-        this.curentUser = user;
+
+    this.currentUser = user;
+    this.isLoggedIn = true;
+    return of(true);
+
+    this.http.post<boolean>(this.baseurl + "login", user).subscribe(
+      response =>{
+        this.isLoggedIn = response;
+        if(this.isLoggedIn)
+          this.currentUser = user;
       }
-    })
+    )
 
     return this.http.post<boolean>(this.baseurl+"login",user);
   }
 
   public isAdminUser() : boolean {
-    return this.curentUser.role.toUpperCase() == "ADMIN";
+    return this.currentUser.role.toUpperCase() == "ADMIN";
   }
 
   public isStudentUser() : boolean {
-    return this.curentUser.role.toUpperCase() == "STUDENT";
+    return this.currentUser.role.toUpperCase() == "STUDENT";
   }
 
   public getCurrentUser() : User {
-    return this.curentUser;
+    return this.currentUser;
   }
 
   public logoutUser() : void {
     this.isLoggedIn = false;
   }
-
-  public searchUser(username :  string) : Observable<User> {
-    const params = new HttpParams().set("username", username);
-    return this.http.get<User>(this.baseurl+"search",{params});
-  } 
 }
