@@ -35,6 +35,12 @@ export class RegisterComponent implements OnInit{
 
   addUser() : void {
 
+    if(this.user.username == "" || this.user.password == "" || this.user.role == "" || this.user.email == "")
+    {
+      alert("Please fill up all fields before submit");
+      return ;
+    }
+
     if(! this.usernameValidation(this.user.username))
     {
       alert("Username must be a word");
@@ -43,12 +49,6 @@ export class RegisterComponent implements OnInit{
 
     if(! this.passwordValidation(this.user.password)){
       alert("Password must contain at least 8 characters")
-      return ;
-    }
-
-    if(this.user.username == "" || this.user.password == "" || this.user.role == "" || this.user.email == "")
-    {
-      alert("Please fill up all fields before submit");
       return ;
     }
 
