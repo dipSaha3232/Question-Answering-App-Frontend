@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 import { ContextQuestion } from '../models/context-question';
 import { QuestionService } from '../question.service';
-import { QuestionComponent } from '../question/question.component';
 
 @Component({
   selector: 'app-admin-panel',
@@ -12,13 +13,14 @@ export class AdminPanelComponent implements OnInit {
 
   contextQuestion : ContextQuestion = new ContextQuestion();
 
-  constructor(private questionService : QuestionService) { }
+  constructor(private questionService : QuestionService,
+              private loginService : LoginService,
+              private router : Router) { }
 
   ngOnInit(): void {
   }
 
   post() : void {
-    alert(this.contextQuestion.questions);
 
     this.questionService.submitContextQuestion(this.contextQuestion).subscribe(
       response =>{
@@ -28,6 +30,11 @@ export class AdminPanelComponent implements OnInit {
           alert("Unable to post");
       }
     )
+  }
+
+  logout() : void {
+    this.loginService.logoutUser();
+    this.router.navigate(['login']);
   }
 
 }

@@ -1,16 +1,13 @@
-<p class = "p">Welcome To Admin Panel</p>
+<div class = "p">
+    Welcome To Admin Panel<a routerLink="" routerLinkActive="active" (click)="logout()">LOG OUT</a>
+</div>
 
-<form>
-    <textarea [(ngModel)] = "contextQuestion.context" placeholder="Enter Comprehension Here" class="textarea" name="paragraph"></textarea>
+<form ngNativeValidate>
+    <textarea [(ngModel)] = "contextQuestion.context" placeholder="Enter Comprehension Here" class="textarea" name="paragraph" required></textarea>
     <br>
     <br>
     <hr>
     <textarea [(ngModel)]="contextQuestion.questions[0]" placeholder="Type a Question Here" class="textarea1" name="question1" required></textarea>
-    <!--<div class="link">
-        <button class="button1">
-            <a routerLink= "/add-question" routerLinkActive="active">Set Question</a>
-        </button>
-    </div>-->
     <br><br><br>
     <textarea [(ngModel)]="contextQuestion.questions[1]" placeholder="Type a Question Here" class="textarea1" name="question2" required></textarea>
     <br>
