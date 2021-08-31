@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from './models/user';
 
 @Injectable({
@@ -22,8 +22,4 @@ export class RegisterService {
     return this.http.post<boolean>(this.baseurl + "register",user,{headers});
   }
 
-  public searchUser(username :  string) : Observable<User> {
-    const params = new HttpParams().set("username", username);
-    return this.http.get<User>(this.baseurl+"search",{params});
-  }
 }

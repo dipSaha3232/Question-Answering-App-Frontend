@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ContextQuestion } from './models/context-question';
 
 @Injectable({
@@ -11,6 +11,9 @@ export class QuestionService {
   private baseurl = "https://localhost:5001/api/";
 
   constructor(private http : HttpClient) { }
+
+  contextQuestion :ContextQuestion = new ContextQuestion();
+
 
   public submitContextQuestion(contextQuestion : ContextQuestion) : Observable<boolean> {
     return this.http.post<boolean>(this.baseurl + "submitContextQuestion", contextQuestion)
