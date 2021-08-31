@@ -1,5 +1,4 @@
 .p {
-    background-color : #000000de;
     height : 60px; 
     padding-left : 10px;
     padding-top : 15px; 
@@ -42,7 +41,7 @@ textarea::placeholder {
 }
 
 .button {
-    background-color : #222f30;
+    background-color : #0baab6;
     border : none;
     color : white;
     padding : 15px 32px;
@@ -75,4 +74,8 @@ textarea::placeholder {
     font-size: 15px;
     color : white;
     padding-left: 60%;
+}
+
+.body {
+    background-image: url("../../assets/admin_panel.jpg");
 }
