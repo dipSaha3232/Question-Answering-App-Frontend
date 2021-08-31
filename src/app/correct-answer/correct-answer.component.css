@@ -3,15 +3,14 @@
     height : 50px;
     padding : 12px 20px;
     box-sizing : border-box;
-    border: 3px solid rgb(201, 175, 175);
     border-radius : 4px;
-    background-color : #ffffff;
+    background-color : #85a6ee;
     font-size : 25px;
     resize : none;
 }
 
 .p {
-    background-color : #8F00FF; 
+    background-color : #1d5fdada;
     height : 60px; 
     padding-left : 10px;
     padding-top : 15px; 
@@ -24,9 +23,8 @@
     height : 50px;
     padding : 12px 20px;
     box-sizing : border-box;
-    border: 3px solid rgb(240, 189, 189);
     border-radius : 4px;
-    background-color : #eee3e3;
+    background-color : #b7c7f1;
     font-size : 25px;
     resize : none;
 }
