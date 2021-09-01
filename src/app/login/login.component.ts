@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     
     this.loginService.login(this.user).subscribe(
       response =>{
-        if(response == true){
+        if(response != ""){
           alert("Login Successful");
           if(this.loginService.isStudentUser())
             this.router.navigate(['student-panel']);
