@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { LocalStorageService } from './local-storage.service';
 import { User } from './models/user';
 
 @Injectable({
@@ -13,7 +14,9 @@ export class LoginService {
   private isLoggedIn : boolean = false;
   private currentUser : User = new User();
 
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient,
+    private _localStorageService : LocalStorageService) {
+
     this.isLoggedIn = false;
   }
 
@@ -21,21 +24,20 @@ export class LoginService {
     return this.isLoggedIn;
   }
 
-  public login(user : User) : Observable<boolean> {
+  public login(user : User) : Observable<string> {
 
-    this.currentUser = user;
-    this.isLoggedIn = true;
-    return of(true);
-
-    this.http.post<boolean>(this.baseurl + "login", user).subscribe(
+    this.http.post<string>(this.baseurl + "login", user).subscribe(
       response =>{
-        this.isLoggedIn = response;
+        if(response != ""){
+          this.isLoggedIn = true;
+          this._localStorageService.setInfo(response);
+        }
         if(this.isLoggedIn)
           this.currentUser = user;
       }
     )
 
-    return this.http.post<boolean>(this.baseurl+"login",user);
+    return this.http.post<string>(this.baseurl+"login",user);
   }
 
   public isAdminUser() : boolean {
