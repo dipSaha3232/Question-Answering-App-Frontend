@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { LocalStorageService } from './local-storage.service';
 import { ContextQuestion } from './models/context-question';
 
 @Injectable({
@@ -10,17 +11,22 @@ export class QuestionService {
 
   private baseurl = "https://localhost:5001/api/";
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient,
+              private _localStorageService : LocalStorageService) { }
 
   contextQuestion :ContextQuestion = new ContextQuestion();
 
 
   public submitContextQuestion(contextQuestion : ContextQuestion) : Observable<boolean> {
-    return this.http.post<boolean>(this.baseurl + "submitContextQuestion", contextQuestion)
+    const headers = new HttpHeaders()
+    headers.append("Authorization",this._localStorageService.loadInfo());
+    return this.http.post<boolean>(this.baseurl + "submitContextQuestion", contextQuestion,{headers})
   }
 
   public getContextQuestion() : Observable<ContextQuestion> {
-    return this.http.get<ContextQuestion>(this.baseurl+"getContextQuestion");
+    const headers = new HttpHeaders()
+    headers.append("Authorization",this._localStorageService.loadInfo());
+    return this.http.get<ContextQuestion>(this.baseurl+"getContextQuestion", {headers});
   }
 
   public getAnswerMarks(answers : string[]) : Observable<number []>{
@@ -28,6 +34,8 @@ export class QuestionService {
   }
 
   public getCorrectAnswers() : Observable<string []>{
-    return this.http.get<string[]>(this.baseurl + "getCorrectAnswers");
+    const headers = new HttpHeaders()
+    headers.append("Authorization",this._localStorageService.loadInfo());
+    return this.http.get<string[]>(this.baseurl + "getCorrectAnswers", {headers});
   }
 }
