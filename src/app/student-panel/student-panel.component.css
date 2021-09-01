@@ -83,13 +83,17 @@ textarea::placeholder {
 }
 
 .button1 {
-    
-    padding : 1em;
+    background-color : #f0a534;
+    border : none;
+    color : white;
+    padding : 15px 32px;
     text-align : center;
     display : inline-block;
-    font-size : 25px;
-    margin : 0 auto;
-    text-decoration: none !important;
+    font-size : 20px;
+    margin : 4px 2px;
+    cursor : pointer;
+    margin : auto;
+    display : block;
 }
 
 .a {
@@ -101,4 +105,14 @@ textarea::placeholder {
 
 .body {
     background-image: url("../../assets/student_panel.jpg");
+}
+
+.button2 {
+    
+    padding : 1em;
+    text-align : center;
+    display : inline-block;
+    font-size : 20px;
+    margin : 0 auto;
+    text-decoration: none !important;
 }

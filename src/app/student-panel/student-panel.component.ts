@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageRefService } from '../local-storage-ref.service';
+import { LocalStorageService } from '../local-storage.service';
 import { LoginService } from '../login.service';
 import { ContextQuestion } from '../models/context-question';
 import { QuestionService } from '../question.service';
@@ -20,16 +22,23 @@ export class StudentPanelComponent implements OnInit {
   correctAnswersMarks : number [] = [];
   correctAnswers : string[]=[]
 
+  index : number = 0;
+
   constructor(private questionService : QuestionService,
               private loginService : LoginService,
-              private router : Router) { }
+              private router : Router,
+              private _localStorageService : LocalStorageService) { }
 
   ngOnInit(): void {
+    //this.getContextQuestion();
+    this._localStorageService.setIndexOfContextQuestion(this.index);
+    this.questionService.getAllContextQuestion();
+    this.questionService.getAllCorrectAnswers();
     this.getContextQuestion();
   }
 
   getContextQuestion() : void {
-    this.questionService.getContextQuestion().subscribe(
+    this.questionService.getContextQuestion(this.index).subscribe(
       response =>{
         this.contextQuestion = response;
       }
@@ -47,8 +56,17 @@ export class StudentPanelComponent implements OnInit {
     
   }
 
-  removeSubmitButton() : void {
-    var element = document.getElementById("submit");
+  backToAttributeOfAnswerTextArea(id : string) : void{
+    document.getElementById(id)?.setAttribute("style", "background-color : #fceded");
+
+    document.getElementById(id)?.removeAttribute("readonly")
+    document.getElementById(id)?.setAttribute("placeholder" , "Write Your Answer Here");
+    let text = document.getElementById(id)?.textContent || ""
+    document.getElementById(id)?.textContent?.replace(text,'')
+  }
+
+  removeSubmitButton(id : string) : void {
+    var element = document.getElementById(id);
     element?.parentNode?.removeChild(element);
   }
 
@@ -66,27 +84,6 @@ export class StudentPanelComponent implements OnInit {
     divElement?.appendChild(hr);
     divElement?.appendChild(p);
   }
-
-  /*submit() : void {
-
-    this.answers.push(this.answer1);
-    this.answers.push(this.answer2);
-    this.answers.push(this.answer3);
-
-
-    this.questionService.getAnswerMarks(this.answers).subscribe(
-      response =>{
-        this.correctAnswersMarks = response;
-
-        this.removeSubmitButton();
-        this.addMarkElement();
-
-        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[0], "answer1", 0);
-        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[1], "answer2", 1);
-        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3", 2);
-      }
-    )
-  }*/
 
   tokenizeAnswer(answer: string) :string[] {
     return answer.split(" ");
@@ -124,13 +121,13 @@ export class StudentPanelComponent implements OnInit {
     this.answers.push(this.answer3);
 
 
-    this.questionService.getCorrectAnswers().subscribe(
+    this.questionService.getCorrectAnswers(this.index).subscribe(
       response =>{
         this.correctAnswers = response;
 
         this.checkAnswerAccuracy();
 
-        this.removeSubmitButton();
+        this.removeSubmitButton("submit");
         this.addMarkElement();
 
         this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[0], "answer1", 0);
@@ -138,6 +135,20 @@ export class StudentPanelComponent implements OnInit {
         this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3", 2);
       }
     )
+  }
+
+  next() : void {
+    if(! this.questionService.hasNext())
+    {
+      this.removeSubmitButton("submit1")
+      return ;
+    }
+    this.backToAttributeOfAnswerTextArea("answer1")
+    this.backToAttributeOfAnswerTextArea("answer2")
+    this.backToAttributeOfAnswerTextArea("answer3")
+    this.index = this.index+1
+    this._localStorageService.setIndexOfContextQuestion(this.index)
+    this.getContextQuestion();
   }
 
 

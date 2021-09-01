@@ -8,21 +8,23 @@
 
 <br><br><hr>
 <div id="answers">
-    <form ngNativeValidate>
+    <form>
         <textarea class="textarea1" name="question1" readonly>{{contextQuestion.questions[0]}}</textarea>
-        <textarea id="answer1" [(ngModel)]="answer1" placeholder="Write Your Answer Here" class="textarea2" name="answer1" required></textarea>
+        <textarea id="answer1" [(ngModel)]="answer1" placeholder="Write Your Answer Here" class="textarea2" name="answer1"></textarea>
         <br><br><br>
         <textarea class="textarea1" name="question2" readonly>{{contextQuestion.questions[1]}}</textarea>
-        <textarea id="answer2" [(ngModel)]="answer2" placeholder="Write Your Answer Here" class="textarea2" name="answer2" required></textarea>
+        <textarea id="answer2" [(ngModel)]="answer2" placeholder="Write Your Answer Here" class="textarea2" name="answer2"></textarea>
         <br><br><br>
-        <textarea class="textarea1" name="question3" readonly>{{contextQuestion.questions[0]}}</textarea>
-        <textarea id="answer3" [(ngModel)]="answer3" placeholder="Write Your Answer Here" class="textarea2" name="answer3" required></textarea>
+        <textarea class="textarea1" name="question3" readonly>{{contextQuestion.questions[2]}}</textarea>
+        <textarea id="answer3" [(ngModel)]="answer3" placeholder="Write Your Answer Here" class="textarea2" name="answer3"></textarea>
         <br><br>
         <button id="submit" (click)="submit()" class="button">Submit Answers</button><br>
         <hr>
         <div class = "link container">
-            <a style = "color: white;" routerLink= "/correct-answers" routerLinkActive="active" class="button1">See Correct Answers</a>
+            <a style = "color: white;" routerLink= "/correct-answers" routerLinkActive="active" class="button2" >See Correct Answers</a>
         </div>
+        <br><br>
+        <button id="submit1" (click)="next()" class="button1">Go to next-></button><br>
     </form>
 </div>
 </body>
