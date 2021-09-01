@@ -11,6 +11,9 @@ export class QuestionService {
 
   private baseurl = "https://localhost:5001/api/";
 
+  private allContextQuestion : ContextQuestion[] = [];
+  private allCorrectAnswers : string[][] = []
+
   constructor(private http : HttpClient,
               private _localStorageService : LocalStorageService) { }
 
@@ -22,18 +25,45 @@ export class QuestionService {
     return this.http.post<boolean>(this.baseurl + "submitContextQuestion", contextQuestion,{headers})
   }
 
-  public getContextQuestion() : Observable<ContextQuestion> {
+  /*public getContextQuestion() : Observable<ContextQuestion> {
     const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
     return this.http.get<ContextQuestion>(this.baseurl+"getContextQuestion", {headers});
-  }
+  }*/
 
-  public getAnswerMarks(answers : string[]) : Observable<number []>{
-    return this.http.post<number []>(this.baseurl + "getAnswerMarks", answers);
-  }
-
-  public getCorrectAnswers() : Observable<string []>{
+  public getContextQuestion(index : number) : Observable<ContextQuestion> {
     const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
-    alert(this._localStorageService.loadInfo())
+    return of(this.allContextQuestion[this._localStorageService.getIndexOfContextQuestion()])
+  }
+
+  public getAllContextQuestion() {
+    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
+    this.http.get<ContextQuestion[]>(this.baseurl+"getContextQuestion", {headers}).subscribe(
+      response =>{
+        this.allContextQuestion = response;
+      }
+    );
+  }
+
+  /*public getCorrectAnswers() : Observable<string []>{
+    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
     return this.http.get<string[]>(this.baseurl + "getCorrectAnswers", {headers});
+  }*/
+
+  public getCorrectAnswers(index : number) : Observable<string []>{
+    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
+    return of(this.allCorrectAnswers[this._localStorageService.getIndexOfContextQuestion()])
+  }
+
+  public getAllCorrectAnswers() {
+    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
+    this.http.get<string[][]>(this.baseurl+"getContextQuestion", {headers}).subscribe(
+      response =>{
+        this.allCorrectAnswers = response;
+      }
+    );
+  }
+
+  public hasNext() : boolean {
+    return this._localStorageService.getIndexOfContextQuestion()<this.allContextQuestion.length-1;
   }
 }
