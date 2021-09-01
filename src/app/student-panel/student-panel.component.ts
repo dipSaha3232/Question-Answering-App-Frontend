@@ -18,6 +18,7 @@ export class StudentPanelComponent implements OnInit {
 
   answers : string[] = [];
   correctAnswersMarks : number [] = [];
+  correctAnswers : string[]=[]
 
   constructor(private questionService : QuestionService,
               private loginService : LoginService,
@@ -57,7 +58,7 @@ export class StudentPanelComponent implements OnInit {
     const br = document.createElement("br");
     const hr = document.createElement("hr");
     p.textContent = "Obtained Marks : "+this.correctAnswersMarks[3];
-    p.setAttribute("style", "background-color : #8F00FF; height : 60px; padding-left : 10px;padding-top : 15px; color : white; font-size: 30px;");
+    p.setAttribute("style", " height : 60px; padding-left : 10px;padding-top : 15px; color : white; font-size: 30px;");
 
 
     divElement?.appendChild(br);
@@ -66,7 +67,7 @@ export class StudentPanelComponent implements OnInit {
     divElement?.appendChild(p);
   }
 
-  submit() : void {
+  /*submit() : void {
 
     this.answers.push(this.answer1);
     this.answers.push(this.answer2);
@@ -85,7 +86,61 @@ export class StudentPanelComponent implements OnInit {
         this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3", 2);
       }
     )
+  }*/
+
+  tokenizeAnswer(answer: string) :string[] {
+    return answer.split(" ");
   }
+
+  isCorrect(answer : string, correctAnswer : string) : boolean {
+    let matchedWord = 0;
+    for(let word of this.tokenizeAnswer(answer)) {
+      if(this.tokenizeAnswer(correctAnswer).includes(word))
+        matchedWord++;
+    }
+
+    if((matchedWord*matchedWord)/(this.tokenizeAnswer(correctAnswer).length * this.tokenizeAnswer(answer).length)>=0.7)
+      return true;
+    return false;
+  }
+
+  checkAnswerAccuracy() {
+    let mark = 0;
+    for(let i=0;i<this.answers.length;i++){
+      if(this.isCorrect(this.answers[i].toUpperCase(),this.correctAnswers[i].toUpperCase())){
+        mark++;
+        this.correctAnswersMarks[i]=1;
+      }
+      else
+        this.correctAnswersMarks[i]=0;
+    }
+    this.correctAnswersMarks[this.answers.length]=mark
+  }
+
+  submit() : void {
+
+    this.answers.push(this.answer1);
+    this.answers.push(this.answer2);
+    this.answers.push(this.answer3);
+
+
+    this.questionService.getCorrectAnswers().subscribe(
+      response =>{
+        this.correctAnswers = response;
+
+        this.checkAnswerAccuracy();
+
+        this.removeSubmitButton();
+        this.addMarkElement();
+
+        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[0], "answer1", 0);
+        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[1], "answer2", 1);
+        this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3", 2);
+      }
+    )
+  }
+
+
 
   logout() : void {
     this.loginService.logoutUser();
