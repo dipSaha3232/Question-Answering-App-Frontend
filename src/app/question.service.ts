@@ -18,14 +18,12 @@ export class QuestionService {
 
 
   public submitContextQuestion(contextQuestion : ContextQuestion) : Observable<boolean> {
-    const headers = new HttpHeaders()
-    headers.append("Authorization",this._localStorageService.loadInfo());
+    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
     return this.http.post<boolean>(this.baseurl + "submitContextQuestion", contextQuestion,{headers})
   }
 
   public getContextQuestion() : Observable<ContextQuestion> {
-    const headers = new HttpHeaders()
-    headers.append("Authorization",this._localStorageService.loadInfo());
+    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
     return this.http.get<ContextQuestion>(this.baseurl+"getContextQuestion", {headers});
   }
 
@@ -34,8 +32,8 @@ export class QuestionService {
   }
 
   public getCorrectAnswers() : Observable<string []>{
-    const headers = new HttpHeaders()
-    headers.append("Authorization",this._localStorageService.loadInfo());
+    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
+    alert(this._localStorageService.loadInfo())
     return this.http.get<string[]>(this.baseurl + "getCorrectAnswers", {headers});
   }
 }
