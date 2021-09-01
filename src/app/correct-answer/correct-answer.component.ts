@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../local-storage.service';
 import { ContextQuestion } from '../models/context-question';
 import { QuestionService } from '../question.service';
 
@@ -9,7 +10,8 @@ import { QuestionService } from '../question.service';
 })
 export class CorrectAnswerComponent implements OnInit {
 
-  constructor(private questionService : QuestionService) { }
+  constructor(private questionService : QuestionService,
+              private _localStorageService : LocalStorageService) { }
 
   correctAnswers : string []= [];
   contextQuestion : ContextQuestion = new ContextQuestion();
@@ -20,7 +22,7 @@ export class CorrectAnswerComponent implements OnInit {
   }
 
   displayCorrectAnswers() : void {
-    this.questionService.getCorrectAnswers().subscribe(
+    this.questionService.getCorrectAnswers(this._localStorageService.getIndexOfContextQuestion()).subscribe(
       response=>{
         this.correctAnswers=response;
       }
@@ -28,7 +30,7 @@ export class CorrectAnswerComponent implements OnInit {
   }
 
   getContextQuestion() : void {
-    this.questionService.getContextQuestion().subscribe(
+    this.questionService.getContextQuestion(this._localStorageService.getIndexOfContextQuestion()).subscribe(
       response=>{
         this.contextQuestion = response;
       }
