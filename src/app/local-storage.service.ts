@@ -13,6 +13,9 @@ export class LocalStorageService {
   private _myData$ = new BehaviorSubject<string>("");
   public myData$ = this._myData$.asObservable()
 
+  private _myIndex$ = new BehaviorSubject<number>(0);
+  public myIndex$ = this._myIndex$.asObservable()
+
   constructor(private _localStorageRefService: LocalStorageRefService) {
       this._localStorage = _localStorageRefService.localStorage
   }
@@ -26,6 +29,18 @@ export class LocalStorageService {
   loadInfo() : string{
     const data = JSON.parse(this._localStorage.getItem('token') || "");
     this._myData$.next(data)
+    return data;
+  }
+
+  setIndexOfContextQuestion(index : number) : void {
+    const jsonData = JSON.stringify(index)
+    this._localStorage.setItem('index', jsonData);
+    this._myIndex$.next(index)
+  }
+
+  getIndexOfContextQuestion() : number {
+    const data = JSON.parse(this._localStorage.getItem('index') || "")
+    this._myIndex$.next(data)
     return data;
   }
 }
