@@ -22,19 +22,21 @@ export class CorrectAnswerComponent implements OnInit {
   }
 
   displayCorrectAnswers() : void {
-    this.questionService.getCorrectAnswers(this._localStorageService.getIndexOfContextQuestion()).subscribe(
+    /*this.questionService.getCorrectAnswers(this._localStorageService.getIndexOfContextQuestion()).subscribe(
       response=>{
         this.correctAnswers=response;
       }
-    )
+    )*/
+    this.correctAnswers=this._localStorageService.getCurrentCorrectAnswer()
   }
 
   getContextQuestion() : void {
-    this.questionService.getContextQuestion(this._localStorageService.getIndexOfContextQuestion()).subscribe(
+    /*this.questionService.getContextQuestion(this._localStorageService.getIndexOfContextQuestion()).subscribe(
       response=>{
         this.contextQuestion = response;
       }
-    )
+    )*/
+    this.contextQuestion = this._localStorageService.getCurrentContextQuestion();
   }
 
 }
