@@ -36,12 +36,25 @@ export class QuestionService {
   }
 
   public getAllContextQuestion() {
-    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
+    const temp1=new ContextQuestion();
+    const temp2=new ContextQuestion();
+    const temp3=new ContextQuestion();
+
+    temp1.context="this is context 1"
+    temp2.context="this is context 2"
+    temp3.context="this is context 3"
+
+    temp1.questions=["1 1","1 2","1 3"]
+    temp2.questions=["2 1","2 2","2 3"]
+    temp3.questions=["3 1","3 2","3 3"]
+
+    this.allContextQuestion=[temp1,temp2,temp3]
+    /*const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
     this.http.get<ContextQuestion[]>(this.baseurl+"getContextQuestion", {headers}).subscribe(
       response =>{
         this.allContextQuestion = response;
       }
-    );
+    );*/
   }
 
   /*public getCorrectAnswers() : Observable<string []>{
@@ -55,12 +68,18 @@ export class QuestionService {
   }
 
   public getAllCorrectAnswers() {
-    const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
+
+    let answer1 = ["a 1 1","a 1 2","a 1 3"]
+    let answer2 = ["a 2 1","a 2 2","a 2 3"]
+    let answer3 = ["a 3 1","a 3 2","a 3 3"]
+
+    this.allCorrectAnswers=[answer1,answer2,answer3]
+    /*const headers = new HttpHeaders().append("Authorization",this._localStorageService.loadInfo());
     this.http.get<string[][]>(this.baseurl+"getContextQuestion", {headers}).subscribe(
       response =>{
         this.allCorrectAnswers = response;
       }
-    );
+    );*/
   }
 
   public hasNext() : boolean {
