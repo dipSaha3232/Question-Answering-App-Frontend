@@ -31,18 +31,20 @@ export class StudentPanelComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getContextQuestion();
-    this._localStorageService.setIndexOfContextQuestion(this.index);
-    this.questionService.getAllContextQuestion();
-    this.questionService.getAllCorrectAnswers();
+    //this._localStorageService.setIndexOfContextQuestion(this.index);
+    //this.questionService.getAllContextQuestion();
+    //this.questionService.getAllCorrectAnswers();
     this.getContextQuestion();
   }
 
   getContextQuestion() : void {
-    this.questionService.getContextQuestion(this.index).subscribe(
+    /*this.questionService.getContextQuestion(this.index).subscribe(
       response =>{
         this.contextQuestion = response;
       }
-    )
+    )*/
+
+    this.contextQuestion=this._localStorageService.getCurrentContextQuestion()
   }
 
   changeAttributeOfAnswerTextArea(value  : number, id : string, index : number) : void{
@@ -121,7 +123,7 @@ export class StudentPanelComponent implements OnInit {
     this.answers.push(this.answer3);
 
 
-    this.questionService.getCorrectAnswers(this.index).subscribe(
+    /*this.questionService.getCorrectAnswers(this.index).subscribe(
       response =>{
         this.correctAnswers = response;
 
@@ -134,11 +136,21 @@ export class StudentPanelComponent implements OnInit {
         this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[1], "answer2", 1);
         this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3", 2);
       }
-    )
+    )*/
+
+    this.correctAnswers=this._localStorageService.getCurrentCorrectAnswer();
+    this.checkAnswerAccuracy();
+
+    this.removeSubmitButton("submit");
+    this.addMarkElement();
+
+    this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[0], "answer1", 0);
+    this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[1], "answer2", 1);
+    this.changeAttributeOfAnswerTextArea(this.correctAnswersMarks[2], "answer3", 2);
   }
 
   next() : void {
-    if(! this.questionService.hasNext())
+    if(! this._localStorageService.hasNext())
     {
       this.removeSubmitButton("submit1")
       return ;
